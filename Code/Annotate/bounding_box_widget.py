@@ -14,7 +14,7 @@ class BoundingBoxWidget(object):
         self.image = cv2.imread(image_path)
         self.name = path.stem
         self.extension = path.suffix
-        
+
         # Get width and height of image
         self.height, self.width = self.image.shape[:2]
 
@@ -128,7 +128,7 @@ class BoundingBoxWidget(object):
             cv2.rectangle(self.clone, top_left, bottom_right, (36, 255, 12), 2)
 
             with open(f"{self.directory}/labels/{self.name}.txt", "a") as file:
-                
+
                 # Create annotation
                 annotation = self.create_annotation(top_left, bottom_right)
 
@@ -151,27 +151,27 @@ class BoundingBoxWidget(object):
 
     def create_annotation(self, top_left, bottom_right, class_identifier=0):
         """Create annotation according to the YOLO notation. That is:
-        
+
         1. Do not return actual coordinates, but a rescaled version so that the image has height 1 and
-            width 1. 
-        2. The output should be a txt file where every line consists of: 
+            width 1.
+        2. The output should be a txt file where every line consists of:
             class_identifier, centre_x, centre_y, width, height
-           where class_identifier is an integer to which corresponds a particular class (e.g. 0 -> person), 
+           where class_identifier is an integer to which corresponds a particular class (e.g. 0 -> person),
            centre_x is the normalised x-coordinate of the bounding box centre,
            centre_y is the normalised y_coordinate of the bounding box centre,
            width is the normalised width of the bounding box,
            height is the normalised height of the bounding box"""
-           
+
         # Find centre coordinates (normalised)
-        centre_x = (top_left[0] + bottom_right[0])/(2*self.width)
-        centre_y = (top_left[1] + bottom_right[1])/(2*self.height)
-        
+        centre_x = (top_left[0] + bottom_right[0]) / (2 * self.width)
+        centre_y = (top_left[1] + bottom_right[1]) / (2 * self.height)
+
         # Get width and height of bounding box (normalised)
         bb_width = (bottom_right[0] - top_left[0]) / self.width
         bb_height = (bottom_right[1] - top_left[1]) / self.height
-            
+
         return f"{class_identifier} {centre_x} {centre_y} {bb_width} {bb_height}\n"
-    
+
     def get_coordinates(self):
         """Return coordinates of top-left and bottom-right
         coordinates of bounding boxes"""

@@ -7,6 +7,7 @@ class CropWidget(object):
     """Class for cropping images"""
 
     def __init__(self, image_path: str):
+
         # Convert path to path object
         path = Path(image_path)
 
@@ -43,6 +44,7 @@ class CropWidget(object):
         self.counter = 0
 
     def extract_coordinates(self, event, x, y, flags, parameters):
+
         # Record starting (x,y) coordinates on left mouse button click
         if event == cv2.EVENT_LBUTTONDOWN:
             # Start the drawing mode
@@ -123,7 +125,7 @@ class CropWidget(object):
 
             # Save image to disk
             cv2.imwrite(
-                f"Data/Cropped/Images/{self.name}_{self.counter}{self.extension}",
+                f"Output/Crop/{self.name}_{self.counter}{self.extension}",
                 cropped_image,
             )
 
