@@ -30,7 +30,7 @@ class CropWidget(object):
         self.drawing = False
 
         # Collect info from mouse
-        cv2.namedWindow("Cropping")
+        cv2.namedWindow("Cropping", cv2.WINDOW_NORMAL)
         cv2.setMouseCallback("Cropping", self.extract_coordinates)
 
         # Bounding box reference points
