@@ -16,6 +16,7 @@ def main(image_directory: str):
         glob(image_directory + "/*.jpg")
         + glob(image_directory + "/*.png")
         + glob(image_directory + "/*.jpeg")
+        + glob(image_directory + "/*.JPG")
     )
 
     # Loop over all images
