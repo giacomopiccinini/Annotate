@@ -1,12 +1,16 @@
 import cv2
-import sys
+import typer
 from glob import glob
 from Code.Annotate.bounding_box_widget import BoundingBoxWidget
 
-if __name__ == "__main__":
-    # Get image path
-    image_directory = sys.argv[1]
-
+def main(image_directory: str):
+    
+    """ 
+    Draw bounding boxes and save annotations to disk. 
+    Press 'n' to move on to the next image. 
+    Press 'q' to quit. 
+    """
+    
     # Get paths to images
     image_paths = (
         glob(image_directory + "/*.jpg")
@@ -32,3 +36,7 @@ if __name__ == "__main__":
             if key == ord("q"):
                 cv2.destroyAllWindows()
                 exit(1)
+
+if __name__ == "__main__":
+
+    typer.run(main)
