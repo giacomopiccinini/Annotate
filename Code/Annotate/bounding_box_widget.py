@@ -1,4 +1,5 @@
 import cv2
+import os
 from pathlib import Path
 
 
@@ -126,6 +127,10 @@ class BoundingBoxWidget(object):
 
             # Draw rectangle
             cv2.rectangle(self.clone, top_left, bottom_right, (36, 255, 12), 2)
+
+            # Create target directory
+            target_directory = f"{self.directory}/labels"
+            os.makedirs(target_directory, exist_ok=True)
 
             with open(f"{self.directory}/labels/{self.name}.txt", "a") as file:
 
