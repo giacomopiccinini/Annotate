@@ -133,7 +133,6 @@ class BoundingBoxWidget(object):
             os.makedirs(target_directory, exist_ok=True)
 
             with open(f"{self.directory}/labels/{self.name}.txt", "a") as file:
-
                 # Create annotation
                 annotation = self.create_annotation(top_left, bottom_right)
 

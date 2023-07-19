@@ -3,14 +3,14 @@ import typer
 from glob import glob
 from Code.Annotate.bounding_box_widget import BoundingBoxWidget
 
+
 def main(image_directory: str):
-    
-    """ 
-    Draw bounding boxes and save annotations to disk. 
-    Press 'n' to move on to the next image. 
-    Press 'q' to quit. 
     """
-    
+    Draw bounding boxes and save annotations to disk.
+    Press 'n' to move on to the next image.
+    Press 'q' to quit.
+    """
+
     # Get paths to images
     image_paths = (
         glob(image_directory + "/*.jpg")
@@ -37,6 +37,6 @@ def main(image_directory: str):
                 cv2.destroyAllWindows()
                 exit(1)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     typer.run(main)
