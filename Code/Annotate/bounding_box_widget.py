@@ -5,22 +5,22 @@ from pathlib import Path
 
 class BoundingBoxWidget(object):
 
-    """Class for cropping images"""
+    """Class for annotating images with bounding boxes"""
 
     def __init__(self, image_path: str):
-        # Convert path to path object
-        path = Path(image_path)
+        # Convert the image path to a path object
+        self.path = Path(image_path)
 
         # Extract image, name and extension
         self.image = cv2.imread(image_path)
-        self.name = path.stem
-        self.extension = path.suffix
 
         # Get width and height of image
         self.height, self.width = self.image.shape[:2]
 
         # Get path of set directory
-        self.directory = "/".join(image_path.split("/")[:-2])
+        self.label_directory = self.path.parent.with_name(
+            f"{self.path.parent.name}_labels"
+        )
 
         # Clone the image for displaying purposes
         self.clone = self.image.copy()
@@ -129,10 +129,11 @@ class BoundingBoxWidget(object):
             cv2.rectangle(self.clone, top_left, bottom_right, (36, 255, 12), 2)
 
             # Create target directory
-            target_directory = f"{self.directory}/labels"
-            os.makedirs(target_directory, exist_ok=True)
+            os.makedirs(self.label_directory, exist_ok=True)
 
-            with open(f"{self.directory}/labels/{self.name}.txt", "a") as file:
+            with open(
+                self.label_directory / self.path.with_suffix(".txt").name, "a"
+            ) as file:
                 # Create annotation
                 annotation = self.create_annotation(top_left, bottom_right)
 
